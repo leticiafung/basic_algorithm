@@ -73,10 +73,47 @@ function mergeSort(input,l,r){
 
 //堆排序
 //维护最大堆的性质,A是该完全二叉树，i是树节点
-function Max_HEAPIFY(A,i){
-	
-
+function Max_HEAPIFY(A,i,len){
+	let left = 2*i + 1;//i从1开始
+	let right = 2*i + 2;
+	let max = i;
+	//const len = A.length;
+	if(A[left] > A[max] && left < len){
+		max = left;
+	}
+	if(A[right] > A[max]&& left < len){
+		max = right;
+	}
+	if( i !== max ){
+		temp = A[max];
+		A[max] = A[i];
+		A[i] = temp;
+		Max_HEAPIFY(A,max,len);
+	}
 }
+//建堆o(nlgn)
+function Build_Max_Heap(A){
+	const len = A.length;
+	for(let i = Math.floor(len/2) ; i >= 0 ; i--){
+		Max_HEAPIFY(A,i,len);
+	}
+}
+function HeapSort(A){
+	Build_Max_Heap(A);
+	console.log(A);
+	let heapLen = A.length - 1;
+	for(let i = A.length-1 ; i > 0 ;i--){
+		temp = A[i];
+		A[i] = A[0];
+		A[0] = temp;
+		heapLen--;
+		// let B = A.slice(0,heapLen);
+		// console.log(heapLen);
+		// console.log(A);
+		Max_HEAPIFY(A,0,heapLen);
+	}
+}
+
 //快排
 function partition(A,l,r){
 	let x =Math.floor( Math.random()*(r-l)+l);
@@ -118,11 +155,14 @@ function fastSort(A,l,r){
 
 //导出的排序函数
 function sortchooser(sortfunc,sortagruments){
-	if(sortfunc)
+	// if(sortfunc)
 
-	return sort.bind(sortfunc,sortagruments);
+	// return sort.bind(sortfunc,sortagruments);
 
 }
 
-export sortchooser
+// module.exports.sortchooser = sortchooser
    
+let A= [32,1,3,7,9]
+HeapSort(A);
+console.log(A);

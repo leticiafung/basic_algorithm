@@ -72,17 +72,21 @@ function mergeSort(input,l,r){
 }
 
 //堆排序
-？
+//维护最大堆的性质,A是该完全二叉树，i是树节点
+function Max_HEAPIFY(A,i){
+	
+
+}
 //快排
 function partition(A,l,r){
-	var x =Math.floor( Math.random()*(r-l)+l);
-	var temp;
+	let x =Math.floor( Math.random()*(r-l)+l);
+	let temp;
 	temp = A[x];
 	A[x] = A[r];
 	A[r] = temp;
-	var key = A[r],
+	let key = A[r],
 		j = l-1;
-	for(var i = l ; i < r; i++){
+	for(let i = l ; i < r; i++){
 		if(A[i]<= key){
 			j++;
 			let tp = A[j];
@@ -99,7 +103,7 @@ function partition(A,l,r){
 
 function fastSort(A,l,r){
 	if(l<r){
-		var p = partition(A,l,r);
+		let p = partition(A,l,r);
 		fastSort(A,l,p-1);//p已经排好了位置，不考虑p
 		fastSort(A,p+1,r);
 	}
@@ -112,5 +116,13 @@ function fastSort(A,l,r){
 //桶排序
 
 
+//导出的排序函数
+function sortchooser(sortfunc,sortagruments){
+	if(sortfunc)
 
+	return sort.bind(sortfunc,sortagruments);
+
+}
+
+export sortchooser
    

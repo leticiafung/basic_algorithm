@@ -147,7 +147,27 @@ function fastSort(A,l,r){
 
 }
 //计数排序
-
+//输入的数据范围必须是已知的
+//A是原数组k是数据范围的最大值,不包括K,B是返回的数组，非原址
+function CountingSort(A,k){
+	k = Number(k);
+	let arrC = new Array(k);
+	const Alen = A.length;
+	arrC.fill(0);
+	A.forEach((x)=>{arrC[x] += 1;});
+	for(let i = 1; i < k ; i++){
+		arrC[i] += arrC[i-1];
+	}
+	let B = new Array(Alen);
+	for(let i = Alen - 1; i >= 0 ; i--){
+		if(arrC[A[i]] > 0){
+			B[arrC[A[i]] - 1] = A[i];
+			arrC[A[i]] -= 1;
+		}
+	}
+	return B;
+	
+}
 //基数排序
 
 //桶排序
@@ -163,6 +183,8 @@ function sortchooser(sortfunc,sortagruments){
 
 // module.exports.sortchooser = sortchooser
    
-let A= [32,1,3,7,9]
-HeapSort(A);
-console.log(A);
+// let A= [32,1,3,7,9]
+// HeapSort(A)
+let A = [3,2,4,8,9,2];
+const arr = CountingSort(A,10)
+console.log(arr); 
